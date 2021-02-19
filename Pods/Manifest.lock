@@ -1,0 +1,38 @@
+PODS:
+  - Alamofire (5.4.1)
+  - JGProgressHUD (2.2)
+  - MBProgressHUD (1.2.0)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
+  - SwiftyUserDefaults (5.1.0)
+  - Unbox (4.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - JGProgressHUD
+  - MBProgressHUD
+  - SDWebImage
+  - SwiftyUserDefaults
+  - Unbox
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - JGProgressHUD
+    - MBProgressHUD
+    - SDWebImage
+    - SwiftyUserDefaults
+    - Unbox
+
+SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SwiftyUserDefaults: 6746ede7f29e4c1bf2b1e104eb3139c5928e44d1
+  Unbox: d2677af8fde59a30141e02981b11cb6a0e3b6bc5
+
+PODFILE CHECKSUM: 6d0403764cf939aac7d543a95c0a9cc03f5e9c98
+
+COCOAPODS: 1.10.0
