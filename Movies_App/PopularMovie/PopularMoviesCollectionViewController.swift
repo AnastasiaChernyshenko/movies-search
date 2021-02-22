@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopularMoviesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, PopularView {
+class PopularMoviesCollectionViewController: UICollectionViewController {
     
     private var presenter: PopularMoviePresenter!
     
@@ -35,10 +35,7 @@ class PopularMoviesCollectionViewController: UICollectionViewController, UIColle
         
     }
     
-    // MARK: UICollectionViewDataSource
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
         return 1
     }
     
@@ -62,12 +59,6 @@ class PopularMoviesCollectionViewController: UICollectionViewController, UIColle
         return sectionHeader
     }
     
-    
-    func showPopularMovies(movies: [MovieModel]) {
-        self.movies = movies
-        collectionView.reloadData()
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movie = movies?[indexPath.row] else {return}
         self.presenter.navigateToMovieDetail(movie: movie)
@@ -84,8 +75,20 @@ class PopularMoviesCollectionViewController: UICollectionViewController, UIColle
             data.movie = selectedMovie
         }
     }
+
+}
+
+
+extension PopularMoviesCollectionViewController: UISearchBarDelegate{
     
-    //MARK:- CollectionViewDelegateFlowLayout
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        performSegue(withIdentifier: "toSearchMovie", sender: self)
+    }
+}
+
+
+extension PopularMoviesCollectionViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         let paddingWidth = sectionInserts.left * (itemsPerRow + 1)
@@ -108,10 +111,10 @@ class PopularMoviesCollectionViewController: UICollectionViewController, UIColle
 }
 
 
-extension PopularMoviesCollectionViewController: UISearchBarDelegate{
+extension PopularMoviesCollectionViewController: PopularView{
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        performSegue(withIdentifier: "toSearchMovie", sender: self)
+    func showPopularMovies(movies: [MovieModel]) {
+        self.movies = movies
+        collectionView.reloadData()
     }
 }

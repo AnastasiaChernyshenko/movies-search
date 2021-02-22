@@ -8,7 +8,7 @@
 import UIKit
 
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SearchView, IndicatorShowable{
+class SearchViewController: UIViewController{
     
     var presenter: SearchPresenter!
    
@@ -38,9 +38,22 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
      
     }
-   
-   
-    // MARK:- TableView
+    
+    // MARK:- Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "fromSearchToDetail"){
+            let data = segue.destination as! MovieDetailViewController
+            data.movie = selectedMovie
+        }
+    }
+    
+    func navigateToMovieDetails(movie: MovieModel) {
+        selectedMovie = movie
+        self.performSegue(withIdentifier: "fromSearchToDetail", sender: self)
+    }
+}
+
+extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -89,32 +102,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies[indexPath.row]
         self.presenter.navigateToMovieDetail(movie: movie)
     }
-    
-    // MARK:- Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "fromSearchToDetail"){
-            let data = segue.destination as! MovieDetailViewController
-            data.movie = selectedMovie
-        }
-    }
-    
-    func navigateToMovieDetails(movie: MovieModel) {
-        selectedMovie = movie
-        self.performSegue(withIdentifier: "fromSearchToDetail", sender: self)
-    }
-    
-    // MARK:- SearchView
-    func showHistory(lastSearchedMovies: [String]) {
-        searchHistory = lastSearchedMovies
-    }
-    
-    func showSearchResults(movies: [MovieModel]) {
-        searchResult = movies
-        tableView.reloadData()
-    }
-    
-    // MARK:- Search Bar
+}
 
+
+extension SearchViewController: UISearchBarDelegate{
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchResult = nil
@@ -126,11 +118,21 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-       
         presenter.onSearch(searchBar.text)
         presenter.updateHistory()
         searchBar.resignFirstResponder()
-      
+    }
+}
+
+
+extension SearchViewController: SearchView, IndicatorShowable{
+  
+    func showHistory(lastSearchedMovies: [String]) {
+        searchHistory = lastSearchedMovies
     }
     
+    func showSearchResults(movies: [MovieModel]) {
+        searchResult = movies
+        tableView.reloadData()
+    }
 }
