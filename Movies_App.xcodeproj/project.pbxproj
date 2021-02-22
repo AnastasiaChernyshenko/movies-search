@@ -129,6 +129,7 @@
 				FD5E1AEF25DA634E0050C436 /* PopularMovie */,
 				FD5E1AC425D93E030050C436 /* Extensions.swift */,
 				FD2CBDF625D85CB5009181C6 /* Main.storyboard */,
+				FD2CBDFE25D85CB6009181C6 /* Info.plist */,
 				FD9AB64925E018B700D080D9 /* Resources */,
 			);
 			path = Movies_App;
@@ -179,7 +180,6 @@
 			children = (
 				FD2CBDF925D85CB6009181C6 /* Assets.xcassets */,
 				FD2CBDFB25D85CB6009181C6 /* LaunchScreen.storyboard */,
-				FD2CBDFE25D85CB6009181C6 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

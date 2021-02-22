@@ -6,7 +6,6 @@
 //
 import MBProgressHUD
 
-
 protocol IndicatorShowable: class {
   func showLoadingIndicator()
   func hideLoadingIndicator()

@@ -10,8 +10,6 @@ target 'Movies_App' do
   pod 'Unbox'
   pod 'Alamofire'
   pod 'SwiftyUserDefaults'
-  pod 'MBProgressHUD'
-  pod 'JGProgressHUD' 
-  pod 'SDWebImage'
+  pod 'MBProgressHUD' 
 
 end
