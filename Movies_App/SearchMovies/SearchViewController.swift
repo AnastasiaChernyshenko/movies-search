@@ -11,11 +11,11 @@ import UIKit
 class SearchViewController: UIViewController{
     
     var presenter: SearchPresenter!
-   
+    var selectedMovie: ((MovieModel) -> Void)?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    private var selectedMovie : MovieModel?
+ 
     private var searchHistory = [String]()
     private var searchResult: [MovieModel]?
     
@@ -39,18 +39,6 @@ class SearchViewController: UIViewController{
      
     }
     
-    // MARK:- Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "fromSearchToDetail"){
-            let data = segue.destination as! MovieDetailViewController
-            data.movie = selectedMovie
-        }
-    }
-    
-    func navigateToMovieDetails(movie: MovieModel) {
-        selectedMovie = movie
-        self.performSegue(withIdentifier: "fromSearchToDetail", sender: self)
-    }
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
@@ -100,7 +88,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
             return
         }
         let movie = movies[indexPath.row]
-        self.presenter.navigateToMovieDetail(movie: movie)
+        presenter.onSelect(movie: movie)
     }
 }
 

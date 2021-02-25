@@ -7,11 +7,17 @@
 
 import Foundation
 
-
-protocol MovieDetailDelegate : class {
-    func setMovieDetail(with movie: MovieModel)
-}
-
 class MovieDetailPresenter {
-   // add similar movies
+    
+     weak var view: MovieDetailView?
+     var movie: MovieModel
+    
+    init(view: MovieDetailView, movie: MovieModel) {
+        self.view = view
+        self.movie = movie
+    }
+    
+    func onViewDidLoad() {
+        view?.detailOf(movie: movie)
+    }
 }

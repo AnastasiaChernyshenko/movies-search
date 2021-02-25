@@ -12,9 +12,13 @@ class PopularMoviePresenter {
     init(view: PopularView) {
         self.view = view
     }
+   
+    func onSelect(movie: MovieModel){
+        view?.selectedMovie?(movie)
+    }
     
-    func navigateToMovieDetail(movie : MovieModel) {
-        self.view?.navigateToMovieDetails(movie: movie)
+    func navigateToSearch(){
+        view?.toSearch?()
     }
     
     func getPopularMovies(){

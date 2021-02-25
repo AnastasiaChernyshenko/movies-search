@@ -9,12 +9,13 @@ import UIKit
 
 class PopularMoviesCollectionViewController: UICollectionViewController {
     
-    private var presenter: PopularMoviePresenter!
+    var toSearch: (() -> Void)?
+    var presenter: PopularMoviePresenter!
+    var selectedMovie: ((MovieModel) -> Void)?
     
     private let itemsPerRow:CGFloat = 3
     private let sectionInserts = UIEdgeInsets(top: 15, left: 15, bottom: 10, right: 10)
     private var movies: [MovieModel]?
-    private var selectedMovie : MovieModel?
     
     private var searchBar:UISearchBar = {
         let searchBar = UISearchBar()
@@ -61,21 +62,9 @@ class PopularMoviesCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movie = movies?[indexPath.row] else {return}
-        self.presenter.navigateToMovieDetail(movie: movie)
+        presenter.onSelect(movie: movie)
     }
     
-    func navigateToMovieDetails(movie: MovieModel) {
-        selectedMovie = movie
-        self.performSegue(withIdentifier: "toMovieDetail", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "toMovieDetail"){
-            let data = segue.destination as! MovieDetailViewController
-            data.movie = selectedMovie
-        }
-    }
-
 }
 
 
@@ -83,7 +72,7 @@ extension PopularMoviesCollectionViewController: UISearchBarDelegate{
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        performSegue(withIdentifier: "toSearchMovie", sender: self)
+        presenter.navigateToSearch()
     }
 }
 

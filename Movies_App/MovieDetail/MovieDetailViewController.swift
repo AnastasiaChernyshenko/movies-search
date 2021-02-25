@@ -10,6 +10,7 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     
     weak var movie: MovieModel?
+    var presenter: MovieDetailPresenter!
     
     @IBOutlet weak var backdropImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,6 +18,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var voteAverageLabel: UILabel!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var popularityLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
     
     @IBOutlet weak var roundedView: UIView! {
         didSet {
@@ -34,6 +36,7 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.onViewDidLoad()
         showMovieDetail()
     }
     
@@ -58,6 +61,15 @@ class MovieDetailViewController: UIViewController {
         voteAverageLabel.text = "⭐️ \(movie.voteAverage)"
         voteCountLabel.text = "\(movie.voteCount)"
         popularityLabel.text = "\(movie.popularity)"
+        overviewLabel.text = movie.overview
     }
     
+}
+
+extension MovieDetailViewController: MovieDetailView{
+    
+    func detailOf(movie: MovieModel) {
+        self.movie = movie
+    }
+
 }

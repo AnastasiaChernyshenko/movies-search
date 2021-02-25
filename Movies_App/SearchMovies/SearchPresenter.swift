@@ -33,8 +33,8 @@ class SearchPresenter {
         })
     }
     
-    func navigateToMovieDetail(movie : MovieModel) {
-        self.view?.navigateToMovieDetails(movie: movie)
+    func onSelect(movie: MovieModel){
+        view?.selectedMovie?(movie)
     }
     
     func updateHistory() {
