@@ -18,7 +18,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var voteAverageLabel: UILabel!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var popularityLabel: UILabel!
-    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var overviewText: UITextView!
     
     @IBOutlet weak var roundedView: UIView! {
         didSet {
@@ -48,7 +48,7 @@ class MovieDetailViewController: UIViewController {
         voteAverageLabel.text = "⭐️ \(movie.voteAverage)"
         voteCountLabel.text = "\(movie.voteCount)"
         popularityLabel.text = "\(movie.popularity)"
-        overviewLabel.text = movie.overview
+        overviewText.text = movie.overview
         
         guard let url = URL(string: ExternalLinks.forImage+movie.poster) else { return}
         posterImage.loadURL(url)
