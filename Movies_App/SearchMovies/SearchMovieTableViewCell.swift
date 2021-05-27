@@ -32,15 +32,16 @@ class SearchMovieTableViewCell: UITableViewCell {
     
     public func configure(with movie: MovieModel){
         viewModel = movie
-        viewModel?.loadImage { [weak self] image in
-          guard let image = image else { return }
-                self?.posterImage.image = image
-        }
         
-        movieTitelLabel.text = viewModel?.originalTitle
-        movieYearLabel.text = viewModel?.releaseDate
-        movieRateLabel.text = "⭐️ \(viewModel!.voteCount)"
+        movieTitelLabel.text = movie.originalTitle
+        movieYearLabel.text = movie.releaseDate.toString()
+        movieRateLabel.text = "⭐️"+movie.voteCount.description
+        
+        guard let url = URL(string: ExternalLinks.forImage+movie.poster) else { return}
+        posterImage.loadURL(url)
 
     }
 
 }
+
+

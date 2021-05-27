@@ -22,11 +22,7 @@ class SearchPresenter {
         view?.showLoadingIndicator()
         NetworkService.shared.searchMovies(with: query, onSuccess: { [weak self] movies in
             self?.view?.hideLoadingIndicator()
-            let models = movies.map { (movie) -> MovieModel in
-                MovieModel(with: movie)
-            }
-            self?.updateHistory()
-            self?.view?.showSearchResults(movies: models)
+            self?.view?.showSearchResults(movies: movies)
         }, onError: { [weak self] message in
             self?.view?.hideLoadingIndicator()
             self?.view?.showAlert(message: message)

@@ -42,26 +42,20 @@ class MovieDetailViewController: UIViewController {
     
     func showMovieDetail(){
         guard let movie = movie else { return}
-        
-        movie.loadImage { [weak self] image in
-            guard let image = image else {
-                return}
-            self?.posterImage.image = image
-        }
-        
-        movie.loadBackdrop { [weak self] image in
-            guard let image = image else { 
-                return}
-            self?.backdropImage.image = image
-        }
-        
-        backdropImage.applyBlurEffect()
+    
         titleLabel.text = movie.originalTitle
-        dateLabel.text = movie.releaseDate
+        dateLabel.text = movie.releaseDate.toString()
         voteAverageLabel.text = "⭐️ \(movie.voteAverage)"
         voteCountLabel.text = "\(movie.voteCount)"
         popularityLabel.text = "\(movie.popularity)"
         overviewLabel.text = movie.overview
+        
+        guard let url = URL(string: ExternalLinks.forImage+movie.poster) else { return}
+        posterImage.loadURL(url)
+       
+        guard let urlForBackdrop = URL(string: ExternalLinks.forImage+movie.backdrop) else { return}
+        backdropImage.loadURL(urlForBackdrop)
+        backdropImage.applyBlurEffect()
     }
     
 }

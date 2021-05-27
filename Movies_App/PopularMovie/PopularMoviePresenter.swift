@@ -23,10 +23,7 @@ class PopularMoviePresenter {
     
     func getPopularMovies(){
         NetworkService.shared.popularMovies(onSuccess: { [weak self] movies in
-            let models = movies.map { (movie) -> MovieModel in
-                MovieModel(with: movie)
-            }
-            self?.view?.showPopularMovies(movies: models)
+            self?.view?.showPopularMovies(movies: movies)
         }, onError: { [weak self] _ in
             self?.view?.showAlert(message: "Can't load data")
         })

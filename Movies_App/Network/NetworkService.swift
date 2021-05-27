@@ -23,29 +23,29 @@ class NetworkService {
         onSuccess(storage.getSuggestions())
     }
     
-    func searchMovies(with query: String, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
+    func searchMovies(with query: String, onSuccess: @escaping ([MovieModel]) -> Void, onError: @escaping (String) -> Void) {
         let queryEncoded = query.urlEncode()
         let searchRequest = baseURL + ExternalLinks.movieSearch + "?query=\(queryEncoded)&"
         sendMoviesRequest(for: searchRequest, onSuccess: onSuccess, onError: onError)
         self.storage.add(suggestion: query)
     }
     
-    func similarMovies(with id: Int, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
+    func similarMovies(with id: Int, onSuccess: @escaping ([MovieModel]) -> Void, onError: @escaping (String) -> Void) {
         let searchRequest = baseURL + ExternalLinks.getSimilarMoviesLink(movieId: id) + "?"
         sendMoviesRequest(for: searchRequest, onSuccess: onSuccess, onError: onError)
     }
     
-    func popularMovies(onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
+    func popularMovies(onSuccess: @escaping ([MovieModel]) -> Void, onError: @escaping (String) -> Void) {
         let searchRequest = baseURL + ExternalLinks.popularMovies + "?"
         sendMoviesRequest(for: searchRequest, onSuccess: onSuccess, onError: onError)
     }
     
-    private func sendMoviesRequest(for requestString: String, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void){
+    private func sendMoviesRequest(for requestString: String, onSuccess: @escaping ([MovieModel]) -> Void, onError: @escaping (String) -> Void){
         let requestWithKey = requestString+"api_key=8bacc480e8a0b8b63aec4d7df24bd9e9"
         AF.request(requestWithKey).responseJSON { response in
             guard let JSON = response.value as? [String: AnyObject],
                   let jsonArray = JSON["results"] as? [[String: AnyObject]],
-                  let movies: [Movie] = Movie.deserialize(with: jsonArray), !movies.isEmpty else {
+                  let movies: [MovieModel] = MovieModel.deserialize(with: jsonArray), !movies.isEmpty else {
                 onError("Not Found")
                 return
             }

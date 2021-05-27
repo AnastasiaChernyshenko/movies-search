@@ -23,6 +23,18 @@ extension UIImageView {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(blurEffectView)
     }
+    
+    func loadURL(_ url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -36,6 +48,10 @@ extension UIView {
     }
 }
 
-
-
-
+extension Date{
+    func toString(_ format: String = "dd.MM.yyyy") -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+}

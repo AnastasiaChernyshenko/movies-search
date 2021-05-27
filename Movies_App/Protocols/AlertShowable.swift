@@ -6,7 +6,7 @@
 //
 import UIKit
 
-protocol AlertShowable: class {
+protocol AlertShowable: AnyObject {
   func showAlert(message text: String)
 }
 

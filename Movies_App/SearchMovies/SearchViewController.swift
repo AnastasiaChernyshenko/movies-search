@@ -19,6 +19,14 @@ class SearchViewController: UIViewController{
     private var searchHistory = [String]()
     private var searchResult: [MovieModel]?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        presenter = SearchPresenter(view: self)
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.onViewWillAppear()
@@ -28,15 +36,6 @@ class SearchViewController: UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchBar.resignFirstResponder()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        presenter = SearchPresenter(view: self)
-        searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-     
     }
     
 }

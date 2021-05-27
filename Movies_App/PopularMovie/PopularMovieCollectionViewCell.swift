@@ -17,10 +17,8 @@ class PopularMovieCollectionViewCell: UICollectionViewCell {
     
     public func configure(with movie: MovieModel){
         viewModel = movie
-        viewModel?.loadImage { [weak self] image in
-          guard let image = image else { return }
-            self?.imageOfPopularMovie.image = image
-        }
+        guard let url = URL(string: ExternalLinks.forImage+movie.poster) else { return}
+        imageOfPopularMovie.loadURL(url)
 
     }
 }
